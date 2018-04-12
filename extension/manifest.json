@@ -14,7 +14,7 @@
        "js": [ "script.js" ],
        "all_frames": true,
        "run_at": "document_end",
-       "matches": ["https://*.openvidu.io/*", "http://localhost:4200/"]
+       "matches": ["https://*.openvidu.io/*"]
     }],
     "icons" : {
         "48" : "icon.png"
