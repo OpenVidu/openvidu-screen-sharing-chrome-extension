@@ -21,12 +21,12 @@ This Chrome extension allows web applications to capture desktop windows. It is 
 ## How to use in openvidu-browser
 
 ```javascript
-var openvidu = new OpenVidu();
-var publisher = openvidu.initPublisher(
+var OV = new OpenVidu();
+OV.setAdvancedConfiguration( { screenShareChromeExtension: "https://chrome.google.com/webstore/detail/YOUR_EXTENSION_NAME/YOUR_EXTENSION_ID" } );
+
+var publisher = OV.initPublisher(
     document.getElementById('myTargetElement'),
-    {
-        videoSource: "screen{https://chrome.google.com/webstore/detail/YOUR_EXTENSION_NAME/YOUR_EXTENSION_ID}",
-    }
+    { videoSource: "screen" }
 );
 ```
 
@@ -39,7 +39,12 @@ Then go to `chrome://extensions` in Google Chrome. Click `Load Unpacked` and sel
 When setting property `videoSource` in your app, just do it like this:
 
 ```javascript
-videoSource: "screen{https://chrome.google.com/webstore/detail/not_relevant/DEVELOPING_EXTENSION_ID_CHROME_PROVIDED}",
+var OV = new OpenVidu();
+OV.setAdvancedConfiguration( { screenShareChromeExtension: "https://chrome.google.com/webstore/detail/not_relevant/DEVELOPING_EXTENSION_ID_CHROME_PROVIDED" } );
+
+var publisher = OV.initPublisher(
+    document.getElementById('myTargetElement'),
+    { videoSource: "screen" }
 );
 ```
 
