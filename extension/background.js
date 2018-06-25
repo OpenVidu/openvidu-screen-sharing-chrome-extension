@@ -1,30 +1,44 @@
-﻿var screenOptions = ['screen', 'window'];
+// This background script is used to invoke desktopCapture API
+// to capture screen-MediaStream.
+
+var screenOptions = ['screen', 'window'];
 
 chrome.runtime.onConnect.addListener(function (port) {
     port.onMessage.addListener(portOnMessageHanlder);
     
-    // Function called for each window.postMessage from "script.js"
+    // This one is called for each message from "content-script.js"
     function portOnMessageHanlder(message) {
+        if(!!message['get-custom-sourceId']) {
+            screenOptions = message['get-custom-sourceId'];
+            chrome.desktopCapture.chooseDesktopMedia(screenOptions, port.sender.tab, onAccessApproved);
+            return;
+        }
+
         if(message == 'get-sourceId') {
             chrome.desktopCapture.chooseDesktopMedia(screenOptions, port.sender.tab, onAccessApproved);
+            return;
         }
 
         if(message == 'audio-plus-tab') {
-            screenOptions = ['screen', 'window', 'audio'];
+            screenOptions = ['screen', 'window', 'audio', 'tab'];
             chrome.desktopCapture.chooseDesktopMedia(screenOptions, port.sender.tab, onAccessApproved);
+            return;
         }
     }
 
-    // On getting sourceId: "sourceId" will be empty if permission denied
-    function onAccessApproved(sourceId) {
-        // If "cancel" button is clicked
+    // On getting sourceId
+    // "sourceId" will be empty if permission is denied.
+    function onAccessApproved(sourceId, opts) {
+        // if "cancel" button is clicked
         if(!sourceId || !sourceId.length) {
             return port.postMessage('PermissionDeniedError');
         }
         
-        // "Ok" button is clicked; share "sourceId" with script.js which will forward it to the webpage
+        // "ok" button is clicked; share "sourceId" with the
+        // content-script which will forward it to the webpage
         port.postMessage({
-            sourceId: sourceId
+            sourceId: sourceId,
+            canRequestAudioTrack: !!opts.canRequestAudioTrack
         });
     }
 });
