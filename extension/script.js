@@ -3,7 +3,7 @@
 // this object is used to make sure our extension isn't conflicted with irrelevant messages!
 var rtcmulticonnectionMessages = {
     'are-you-there': true,
-    'get-sourceId':  true,
+    'get-sourceId': true,
     'audio-plus-tab': true
 };
 
@@ -23,22 +23,22 @@ window.addEventListener('message', function (event) {
     if (event.source != window)
         return;
 
-    if(!!event.data['get-custom-sourceId']) {
+    if (!!event.data['get-custom-sourceId']) {
         // forward message to background script
         port.postMessage(event.data);
         return;
     }
-        
+
     // it is 3rd party message
-    if(!rtcmulticonnectionMessages[event.data]) return;
-        
+    if (!rtcmulticonnectionMessages[event.data]) return;
+
     // if browser is asking whether extension is available
-    if(event.data == 'are-you-there') {
+    if (event.data == 'are-you-there') {
         window.postMessage('rtcmulticonnection-extension-loaded', '*');
     }
 
     // if it is something that need to be shared with background script
-    if(event.data == 'get-sourceId' || event.data === 'audio-plus-tab') {
+    if (event.data == 'get-sourceId' || event.data === 'audio-plus-tab') {
         // forward message to background script
         port.postMessage(event.data);
     }
