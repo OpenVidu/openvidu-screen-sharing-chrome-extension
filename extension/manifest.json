@@ -1,5 +1,5 @@
 {
-    "name" : "Screen Sharing",
+    "name" : "OpenVidu ScreenSharing",
     "author": "OpenVidu",
     "version" : "1.0.0",
     "manifest_version" : 2,
@@ -16,8 +16,10 @@
        "run_at": "document_end",
        "matches": ["https://*.openvidu.io/*", "https://openvidu.github.io/openvidu-screen-sharing-chrome-extension/*"]
     }],
-    "icons" : {
-        "48" : "icon.png"
+    "icons": {
+       "16": "icon16.png",
+       "48": "icon48.png",
+       "128": "icon128.png"
     },
     "permissions": [
         "desktopCapture"
