@@ -14,7 +14,7 @@
        "js": ["script.js"],
        "all_frames": true,
        "run_at": "document_end",
-       "matches": ["https://*.openvidu.io/*"]
+       "matches": ["https://*.openvidu.io/*", "https://openvidu.github.io/openvidu-screen-sharing-chrome-extension/*"]
     }],
     "icons" : {
         "48" : "icon.png"
