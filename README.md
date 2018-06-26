@@ -54,6 +54,10 @@ You're good to go now!
 
 [https://developer.chrome.com/webstore/publish](https://developer.chrome.com/webstore/publish)
 
+## Troubleshooting
+
+- Getting `SCREEN_EXTENSION_NOT_INSTALLED` or `SCREEN_EXTENSION_DISABLED` errors even though the extension is already added: this usually means that you are trying to use your extension from a URL not included in `matches` array of your _[manifest.json file](https://github.com/OpenVidu/openvidu-screen-sharing-chrome-extension/blob/master/extension/manifest.json#L17)_. Be sure to add any URL where you plan to serve an application using your extension (this includes localhost domains when developing!).
+
 ---
 
 > Acknowledgements to [Muaz Khan](https://www.webrtc-experiment.com/), whose open-source project [Chrome-Extensions](https://github.com/muaz-khan/Chrome-Extensions) helped implementing _OpenVidu/openvidu-screen-sharing-chrome-extension_ repository.
